@@ -49,7 +49,7 @@ pcont() {
   PROC="$1"
   psa | awk -v PROC="$PROC" '$0 ~ PROC { print $2 }' | xargs kill -CONT
 }
-export PATH="$PATH:$HOME/Projects/android-studio/bin"
+
 # -----------------------------------------------------------------------------
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=zsh sw=2 ts=2 et
