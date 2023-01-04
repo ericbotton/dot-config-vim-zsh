@@ -9,18 +9,17 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'          # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
 export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
 # Aliases
-alias cat='pygmentize -g -O style=colorful,linenos=1'
 alias ls='ls -v --color=auto'
 alias ll='ls --group-directories-first -lhF'
 alias l.='ls --group-directories-first -AdF .*'
 alias ll.='ls --group-directories-first -AdlhF .*'
 alias lart='ls -lArt --color=auto'
-alias astat='stat -c "%x" '
-alias mstat='stat -c "%y" '
+alias afile='stat -c "%x" '
+alias mfile='stat -c "%y" '
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
-alias psa='ps -eww -o "%U %p %P %a"'
+alias psa='ps -eww -o "%U %p %a" | grep -v "\[.*\]"'
 alias dfh='df -BM | grep /dev/sd | sort -n -k4'
 alias atree='pstree -alnph'
 alias rsync='rsync --progress'
@@ -50,22 +49,7 @@ pcont() {
   PROC="$1"
   psa | awk -v PROC="$PROC" '$0 ~ PROC { print $2 }' | xargs kill -CONT
 }
-# if the command-not-found package is installed, use it
-if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
-	function command_not_found_handle {
-	        # check because c-n-f could've been removed in the meantime
-                if [ -x /usr/lib/command-not-found ]; then
-		   /usr/lib/command-not-found -- "$1"
-                   return $?
-                elif [ -x /usr/share/command-not-found/command-not-found ]; then
-		   /usr/share/command-not-found/command-not-found -- "$1"
-                   return $?
-		else
-		   printf "%s: command not found\n" "$1" >&2
-		   return 127
-		fi
-	}
-fi
+export PATH="$PATH:$HOME/Projects/android-studio/bin"
 # -----------------------------------------------------------------------------
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=zsh sw=2 ts=2 et
